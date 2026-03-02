@@ -85,7 +85,7 @@
         <!-- 한 진영 (위) -->
         <div id="han-row" style="display:flex;align-items:center;gap:8px;">
           <div class="player-label han" id="han-label">한</div>
-          <div id="captured-by-cho" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;"></div>
+          <div id="captured-by-han" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;"></div>
         </div>
         <!-- 장기판 -->
         <div id="board-container">
@@ -95,7 +95,7 @@
         <!-- 초 진영 (아래) -->
         <div id="cho-row" style="display:flex;align-items:center;gap:8px;">
           <div class="player-label cho" id="cho-label">초</div>
-          <div id="captured-by-han" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;"></div>
+          <div id="captured-by-cho" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;"></div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:center;margin-top:4px;">
@@ -911,7 +911,7 @@ function getRecord(){
 function updateRecordDisplay(){
   const rec=getRecord();
   const el=document.getElementById('record-display');
-  if(el)el.textContent=`AI 전적:  ${rec.win}승 ${rec.lose}패`;
+  if(el)el.textContent=`AI와의 전적:  ${rec.win}승 ${rec.lose}패`;
 }
 
 window.addEventListener('resize',()=>{if(document.getElementById('game-screen').classList.contains('active')){resizeBoard();drawBoard();}});
