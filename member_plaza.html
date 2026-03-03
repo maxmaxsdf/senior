@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원광장 - 대한노인회</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2D6B;
+    --navy-light: #1a3f8f;
+    --red: #C8102E;
+    --gold: #E8A020;
+    --bg: #F5F6FA;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --card-shadow: 0 2px 16px rgba(13,45,107,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; color: white; }
+  .logo-badge {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; color: white;
+  }
+  .logo-text { font-size: 17px; font-weight: 700; color: white; }
+  .logo-sub { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .header-nav { display: flex; gap: 24px; align-items: center; }
+  .header-nav a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .header-nav a.active {
+    color: white;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .header-btns { display: flex; gap: 8px; }
+  .btn-login {
+    padding: 7px 18px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    color: white; font-size: 14px; font-weight: 500;
+    background: transparent; cursor: pointer;
+  }
+  .btn-join {
+    padding: 7px 18px;
+    background: var(--red); border: none;
+    border-radius: 6px; color: white;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+
+  /* MAGAZINE HERO */
+  .magazine-hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 0;
+    min-height: 380px;
+    overflow: hidden;
+  }
+  .mag-left {
+    padding: 40px 40px 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .mag-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .mag-eyebrow-badge {
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+  .mag-eyebrow-date { font-size: 12px; color: var(--text-muted); }
+  .mag-headline {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-bottom: 16px;
+  }
+  .mag-headline em { color: var(--red); font-style: normal; }
+  .mag-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 24px;
+    max-width: 480px;
+  }
+  .mag-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .mag-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    border: 2px solid var(--gold);
+  }
+  .mag-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .mag-name-sub { font-size: 12px; color: var(--text-muted); }
+  .mag-cta-row { display: flex; gap: 10px; align-items: center; }
+  .mag-cta-primary {
+    background: var(--navy);
+    color: white;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mag-cta-secondary {
+    background: transparent;
+    color: var(--navy);
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--navy);
+    cursor: pointer;
+  }
+  .mag-right {
+    padding: 32px 0 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mag-right-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .mag-mini-card {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .mag-mini-card:hover { background: #e8edf7; }
+  .mag-mini-icon {
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .mag-mini-title { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .mag-mini-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .mag-submit-banner {
+    background: linear-gradient(135deg, #0D2D6B, #1a3f8f);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: white;
+    margin-top: auto;
+  }
+  .mag-submit-banner-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .mag-submit-banner-desc { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+  .mag-submit-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* MAIN */
+  .main { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 18px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+  .section-more {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  /* BRANCH NEWS */
+  .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .branch-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .branch-card:hover { transform: translateY(-3px); }
+  .branch-photo {
+    height: 110px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    position: relative;
+  }
+  .branch-photo.color1 { background: linear-gradient(135deg, #0D2D6B20, #0D2D6B40); }
+  .branch-photo.color2 { background: linear-gradient(135deg, #C8102E20, #C8102E40); }
+  .branch-photo.color3 { background: linear-gradient(135deg, #06474020, #06474040); }
+  .branch-photo.color4 { background: linear-gradient(135deg, #7c3aed20, #7c3aed40); }
+  .branch-region {
+    position: absolute;
+    bottom: 8px; left: 8px;
+    background: rgba(13,45,107,0.85);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .branch-body { padding: 12px; }
+  .branch-title { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
+  .branch-meta { font-size: 11px; color: var(--text-muted); }
+
+  /* TWO COLUMN BOTTOM */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* COMMUNITY BOARD */
+  .board-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+  }
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .board-title { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .board-tabs { display: flex; gap: 4px; }
+  .board-tab {
+    font-size: 12px; padding: 4px 10px;
+    border-radius: 4px; cursor: pointer;
+    font-weight: 600; color: var(--text-muted);
+    background: var(--bg); border: 1px solid var(--border);
+  }
+  .board-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .board-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .board-row:last-child { border-bottom: none; }
+  .board-row:hover .board-row-title { color: var(--navy); }
+  .board-num { font-size: 12px; color: var(--text-muted); width: 20px; flex-shrink: 0; padding-top: 1px; }
+  .board-row-content { flex: 1; }
+  .board-row-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+  .board-row-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 8px; }
+  .board-hot { font-size: 10px; background: #fef2f2; color: var(--red); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+  .board-write-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 9px;
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .board-write-btn:hover { border-color: var(--navy); color: var(--navy); background: #f0f4ff; }
+
+  /* QA BOARD */
+  .qa-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+  }
+  .qa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .qa-title { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .qa-stats { display: flex; gap: 14px; margin-bottom: 14px; }
+  .qa-stat {
+    flex: 1;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .qa-stat-num { font-size: 22px; font-weight: 900; color: var(--navy); }
+  .qa-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .qa-stat.done .qa-stat-num { color: #16a34a; }
+  .qa-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .qa-row:last-child { border-bottom: none; }
+  .qa-status {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .qa-status.done { background: #dcfce7; color: #16a34a; }
+  .qa-status.ing { background: #fef9c3; color: #92400e; }
+  .qa-status.new { background: #dbeafe; color: #1e40af; }
+  .qa-row-title { flex: 1; font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .qa-row-date { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+  .qa-ask-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 9px;
+    background: var(--navy);
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-badge">대노</div>
+    <div>
+      <div class="logo-text">대한노인회</div>
+      <div class="logo-sub">회원광장</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#">사이버경로당</a>
+    <a href="#" class="active">회원광장</a>
+    <a href="#">공지사항</a>
+    <a href="#">일자리</a>
+    <a href="#">조직안내</a>
+  </nav>
+  <div class="header-btns">
+    <button class="btn-login">로그인</button>
+    <button class="btn-join">회원가입</button>
+  </div>
+</header>
+
+<!-- MAGAZINE HERO -->
+<div class="magazine-hero">
+  <div class="mag-left">
+    <div class="mag-eyebrow">
+      <span class="mag-eyebrow-badge">TODAY'S MEMBER</span>
+      <span class="mag-eyebrow-date">2026년 3월 3일 · AI 매거진</span>
+    </div>
+    <div class="mag-headline">
+      "72세에 유튜브를 시작했습니다.<br>구독자 <em>1만 2천 명</em>의 비결은<br>그냥 찍는 것이었어요"
+    </div>
+    <div class="mag-sub">
+      경북 안동 출신 김태완(72) 어르신은 손자에게 스마트폰 사용법을 배운 지 6개월 만에 유튜버로 데뷔했다. 주제는 단 하나 — "내 손으로 직접 담근 장류 이야기". 구수한 사투리와 진솔한 이야기가 전국 시청자를 사로잡았다.
+    </div>
+    <div class="mag-profile">
+      <div class="mag-avatar">👴</div>
+      <div>
+        <div class="mag-name">김태완 어르신 · 72세</div>
+        <div class="mag-name-sub">경북 안동 · 대한노인회 회원 8년차</div>
+      </div>
+    </div>
+    <div class="mag-cta-row">
+      <button class="mag-cta-primary">📖 인터뷰 전문 보기 <span style="font-size:11px;opacity:0.7">(로그인 후 무료)</span></button>
+      <button class="mag-cta-secondary">나도 사연 보내기 ✍️</button>
+    </div>
+  </div>
+  <div class="mag-right">
+    <div class="mag-right-title">다음 주인공은 누구?</div>
+    <div class="mag-mini-card">
+      <div class="mag-mini-icon" style="background:#fef3c7;">🎨</div>
+      <div>
+        <div class="mag-mini-title">"80세에 수묵화를 시작한 이유"<br>— 부산 이순희 어르신</div>
+        <div class="mag-mini-meta">내일 공개 예정</div>
+      </div>
+    </div>
+    <div class="mag-mini-card">
+      <div class="mag-mini-icon" style="background:#d1fae5;">🌿</div>
+      <div>
+        <div class="mag-mini-title">"옥상 텃밭에서 연매출 300만원"<br>— 서울 강동구 박창수 어르신</div>
+        <div class="mag-mini-meta">모레 공개 예정</div>
+      </div>
+    </div>
+    <div class="mag-mini-card">
+      <div class="mag-mini-icon" style="background:#fce7f3;">💃</div>
+      <div>
+        <div class="mag-mini-title">"75세 트로트 가수 데뷔기"<br>— 전북 전주 최명자 어르신</div>
+        <div class="mag-mini-meta">3일 후 공개 예정</div>
+      </div>
+    </div>
+    <div class="mag-submit-banner">
+      <div class="mag-submit-banner-title">📬 당신의 인생이 기사가 됩니다</div>
+      <div class="mag-submit-banner-desc">사연을 보내주시면 AI 에디터가 멋진 잡지 기사로 만들어 전국 회원에게 소개합니다</div>
+      <button class="mag-submit-btn">사연 보내기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- BRANCH NEWS -->
+  <div class="section-header">
+    <div class="section-title">전국 지회 소식 — 지금 이 순간</div>
+    <a href="#" class="section-more">전체보기 →</a>
+  </div>
+  <div class="branch-grid">
+    <div class="branch-card">
+      <div class="branch-photo color1">
+        🎉
+        <div class="branch-region">충북 청주</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-title">청주 서원구 지회 2026 신년행사 — 어르신 120명 참석</div>
+        <div class="branch-meta">2시간 전 · 사진 14장</div>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-photo color2">
+        🌸
+        <div class="branch-region">전북 전주</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-title">전북연합회 봄 건강걷기대회 — 3월 15일 개최 확정</div>
+        <div class="branch-meta">어제 · 사진 8장</div>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-photo color3">
+        🤝
+        <div class="branch-region">충남 서산</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-title">서산시 지회 자원봉사단 독거 어르신 80가구 방문 완료</div>
+        <div class="branch-meta">2일 전 · 사진 22장</div>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-photo color4">
+        📚
+        <div class="branch-region">경기 수원</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-title">수원 팔달 지회 노인대학 신학기 개강 — 스마트폰반 인기</div>
+        <div class="branch-meta">3일 전 · 사진 11장</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM GRID: 소통의장 + Q&A -->
+  <div class="bottom-grid">
+
+    <!-- 소통의 장 -->
+    <div class="board-card">
+      <div class="board-header">
+        <div class="board-title">💬 소통의 장</div>
+        <div class="board-tabs">
+          <div class="board-tab active">인기글</div>
+          <div class="board-tab">최신</div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-num">1</div>
+        <div class="board-row-content">
+          <div class="board-row-title">임플란트 10개 하고도 고기 뜯는 비결 — 우리 집 잇몸 관리법 <span class="board-hot">HOT</span></div>
+          <div class="board-row-meta"><span>김정수 어르신</span><span>·</span><span>댓글 48</span><span>·</span><span>조회 2,103</span></div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-num">2</div>
+        <div class="board-row-content">
+          <div class="board-row-title">대한민국 의료비 이렇게 아꼈습니다 — 노인 의료급여 완전 정복</div>
+          <div class="board-row-meta"><span>박순자 어르신</span><span>·</span><span>댓글 31</span><span>·</span><span>조회 1,872</span></div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-num">3</div>
+        <div class="board-row-content">
+          <div class="board-row-title">소리와 젊은 영웅들 — 우리 세대가 만든 대한민국을 기억해</div>
+          <div class="board-row-meta"><span>이영호 어르신</span><span>·</span><span>댓글 27</span><span>·</span><span>조회 1,590</span></div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-num">4</div>
+        <div class="board-row-content">
+          <div class="board-row-title">경로당에서 처음 스마트폰 앱 깔았습니다 — 70세 도전기</div>
+          <div class="board-row-meta"><span>최동철 어르신</span><span>·</span><span>댓글 19</span><span>·</span><span>조회 1,244</span></div>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-num">5</div>
+        <div class="board-row-content">
+          <div class="board-row-title">손자 결혼식에서 내가 직접 쓴 축사 — 다들 울었어요 <span class="board-hot">NEW</span></div>
+          <div class="board-row-meta"><span>장복순 어르신</span><span>·</span><span>댓글 11</span><span>·</span><span>오늘</span></div>
+        </div>
+      </div>
+      <button class="board-write-btn">✍️ 글 쓰고 싶으시면 로그인하세요 (무료 가입)</button>
+    </div>
+
+    <!-- 건의 및 질의응답 -->
+    <div class="qa-card">
+      <div class="qa-header">
+        <div class="qa-title">📬 건의 및 질의응답</div>
+        <a href="#" class="section-more" style="font-size:12px;">전체보기 →</a>
+      </div>
+      <div class="qa-stats">
+        <div class="qa-stat">
+          <div class="qa-stat-num">127</div>
+          <div class="qa-stat-label">이번 달 접수</div>
+        </div>
+        <div class="qa-stat done">
+          <div class="qa-stat-num">114</div>
+          <div class="qa-stat-label">답변 완료</div>
+        </div>
+        <div class="qa-stat">
+          <div class="qa-stat-num">평균 1.2일</div>
+          <div class="qa-stat-label">응답 소요 시간</div>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-status done">답변완료</div>
+        <div class="qa-row-title">사이버경로당 운동 영상 링크가 안 눌러집니다</div>
+        <div class="qa-row-date">2일 전</div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-status done">답변완료</div>
+        <div class="qa-row-title">회원 탈퇴 서식 어디서 받나요?</div>
+        <div class="qa-row-date">3일 전</div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-status ing">검토중</div>
+        <div class="qa-row-title">우리 경로당에도 스마트 시스템 도입해 주세요</div>
+        <div class="qa-row-date">어제</div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-status ing">검토중</div>
+        <div class="qa-row-title">노인일자리 채용공고 지역 필터 기능 추가 건의</div>
+        <div class="qa-row-date">오늘</div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-status new">신규접수</div>
+        <div class="qa-row-title">기관지 혜심 PDF로도 받을 수 있나요?</div>
+        <div class="qa-row-date">오늘</div>
+      </div>
+      <button class="qa-ask-btn">📝 질문·건의하기 (로그인 후 등록)</button>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 대한노인회 · 회원광장 &nbsp;|&nbsp; 이 화면은 제안용 UI 샘플입니다
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사이버경로당 - 대한노인회</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2D6B;
+    --navy-light: #1a3f8f;
+    --red: #C8102E;
+    --gold: #E8A020;
+    --bg: #F5F6FA;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --card-shadow: 0 2px 16px rgba(13,45,107,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+  }
+  .logo-badge {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; color: white;
+  }
+  .logo-text { font-size: 17px; font-weight: 700; color: white; }
+  .logo-sub { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .header-nav { display: flex; gap: 24px; align-items: center; }
+  .header-nav a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .header-nav a:hover, .header-nav a.active { color: white; }
+  .header-nav a.active { border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+  .header-btns { display: flex; gap: 8px; }
+  .btn-login {
+    padding: 7px 18px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { background: rgba(255,255,255,0.1); }
+  .btn-join {
+    padding: 7px 18px;
+    background: var(--red);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* FORTUNE HERO */
+  .fortune-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3f8f 60%, #2a5298 100%);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .fortune-hero::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(232,160,32,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .fortune-left { flex: 1; }
+  .fortune-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .fortune-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .fortune-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    max-width: 400px;
+    margin-bottom: 16px;
+  }
+  .fortune-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .fortune-tag {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+  .fortune-tag.highlight { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 700; }
+  .fortune-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+  }
+  .fortune-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .fortune-zodiac {
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(232,160,32,0.4);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .zodiac-label { font-size: 12px; color: var(--gold); font-weight: 700; margin-top: 4px; }
+
+  /* CARE ALERTS */
+  .care-bar {
+    background: white;
+    padding: 10px 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .care-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .care-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .care-icon.medicine { background: #fef3c7; }
+  .care-icon.steps { background: #d1fae5; }
+  .care-icon.weather { background: #dbeafe; }
+  .care-icon.job { background: #fce7f3; }
+  .care-label { font-weight: 600; color: var(--text); }
+  .care-divider { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+
+  /* MAIN CONTENT */
+  .main { padding: 28px 40px; max-width: 1200px; margin: 0 auto; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 18px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+  .section-more {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 2px;
+  }
+
+  /* CONTENT GRID - 6 tiles */
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .content-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .content-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(13,45,107,0.15);
+  }
+  .card-thumb {
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-thumb-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    position: relative;
+  }
+  .card-thumb-bg.news { background: linear-gradient(135deg, #0D2D6B, #1a3f8f); }
+  .card-thumb-bg.travel { background: linear-gradient(135deg, #065f46, #047857); }
+  .card-thumb-bg.exercise { background: linear-gradient(135deg, #c2410c, #ea580c); }
+  .card-thumb-bg.hobby { background: linear-gradient(135deg, #7c3aed, #9333ea); }
+  .card-thumb-bg.language { background: linear-gradient(135deg, #0369a1, #0284c7); }
+  .card-thumb-bg.dementia { background: linear-gradient(135deg, #be185d, #db2777); }
+  .card-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .card-play {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    background: rgba(255,255,255,0.2);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: white;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .card-body { padding: 14px; }
+  .card-category {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .card-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-lock {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--navy);
+    background: #eff6ff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* JANGGI SECTION */
+  .janggi-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .janggi-left {}
+  .janggi-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .janggi-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .janggi-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .janggi-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .janggi-badge {
+    display: flex; align-items: center; gap: 5px;
+    background: #f0f4ff;
+    border: 1px solid #c7d7ff;
+    color: var(--navy);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .janggi-badge.red-badge { background: #fff0f0; border-color: #ffc5c5; color: var(--red); }
+  .janggi-hearts {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .heart { font-size: 22px; }
+  .heart.empty { filter: grayscale(1); opacity: 0.3; }
+  .heart-label { font-size: 13px; color: var(--text-muted); margin-left: 4px; }
+  .loss-banner {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .btn-play {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .janggi-right {}
+  .leaderboard {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .lb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .lb-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .lb-tabs { display: flex; gap: 4px; }
+  .lb-tab {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .lb-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .lb-rank.gold { background: var(--gold); color: white; }
+  .lb-rank.silver { background: #9ca3af; color: white; }
+  .lb-rank.bronze { background: #b45309; color: white; }
+  .lb-rank.other { background: #f3f4f6; color: var(--text-muted); }
+  .lb-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--text); }
+  .lb-location { font-size: 11px; color: var(--text-muted); }
+  .lb-score { font-size: 13px; font-weight: 700; color: var(--navy); }
+  .lb-you { background: #eff6ff; border-radius: 6px; padding: 8px 10px; border: 1px dashed #93c5fd; }
+
+  /* FOOTER STRIP */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-badge">대노</div>
+    <div>
+      <div class="logo-text">대한노인회</div>
+      <div class="logo-sub">사이버경로당</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#" class="active">사이버경로당</a>
+    <a href="#">회원광장</a>
+    <a href="#">공지사항</a>
+    <a href="#">일자리</a>
+    <a href="#">조직안내</a>
+  </nav>
+  <div class="header-btns">
+    <button class="btn-login">로그인</button>
+    <button class="btn-join">회원가입</button>
+  </div>
+</header>
+
+<!-- FORTUNE HERO -->
+<div class="fortune-hero">
+  <div class="fortune-left">
+    <div class="fortune-date">2026년 3월 3일 화요일 · 오늘의 운세</div>
+    <div class="fortune-title">🐉 용띠 운세 — 오늘은 大吉</div>
+    <div class="fortune-desc">동쪽에서 반가운 소식이 들려옵니다. 오랜 인연과의 만남이 예상되며, 재물운이 상승하는 날입니다. 건강은 허리 관리에 주의하세요.</div>
+    <div class="fortune-tags">
+      <span class="fortune-tag highlight">🍀 행운의 컬러: 노란색</span>
+      <span class="fortune-tag">💰 재물운 ★★★★☆</span>
+      <span class="fortune-tag">❤️ 건강운 ★★★☆☆</span>
+      <span class="fortune-tag">🤝 대인운 ★★★★★</span>
+    </div>
+    <a href="#" class="fortune-cta">📖 상세 사주 · 꿈풀이 보기 →<span style="font-size:11px;opacity:0.7">(로그인 필요)</span></a>
+  </div>
+  <div class="fortune-right">
+    <div class="fortune-zodiac">🐉</div>
+    <div class="zodiac-label">1952년생 · 용띠</div>
+  </div>
+</div>
+
+<!-- CARE BAR -->
+<div class="care-bar">
+  <div class="care-item">
+    <div class="care-icon medicine">💊</div>
+    <span><span class="care-label">오전 복약 알림</span> · 아직 미확인</span>
+  </div>
+  <div class="care-divider"></div>
+  <div class="care-item">
+    <div class="care-icon steps">🏃</div>
+    <span><span class="care-label">오늘 걸음</span> · 2,341보 (목표 5,000보)</span>
+  </div>
+  <div class="care-divider"></div>
+  <div class="care-item">
+    <div class="care-icon weather">🌤️</div>
+    <span><span class="care-label">우리 동네 날씨</span> · 맑음 9°C / 미세먼지 좋음</span>
+  </div>
+  <div class="care-divider"></div>
+  <div class="care-item">
+    <div class="care-icon job">📋</div>
+    <span><span class="care-label">새 일자리</span> · 근처 3건 신규 등록</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- CONTENT GRID -->
+  <div class="section-header">
+    <div class="section-title">콘텐츠 둘러보기</div>
+    <a href="#" class="section-more">전체보기 →</a>
+  </div>
+  <div class="content-grid">
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg news">📰</div>
+        <div class="card-badge">시니어 뉴스</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">시니어 뉴스</div>
+        <div class="card-title">2026 기초연금 월 35만원으로 인상 확정… 7월부터 적용</div>
+        <div class="card-meta">오늘 오전 9:12 · 조회 1,284</div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg travel">✈️</div>
+        <div class="card-badge">여행 가이드</div>
+        <div class="card-play">▶ 영상보기</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">여행 가이드</div>
+        <div class="card-title">봄맞이 전남 순천만 1박2일 시니어 패키지 — 교통비 지원 포함</div>
+        <div class="card-meta">3일 전 · 저장 892회</div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg exercise">🤸</div>
+        <div class="card-badge">운동 따라하기</div>
+        <div class="card-play">▶ 5분 22초</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">운동 따라하기</div>
+        <div class="card-title">무릎 통증 없애는 5분 의자 스트레칭 — 앉아서 따라하세요</div>
+        <div class="card-meta">어제 · 조회 3,412</div>
+        <div class="card-lock">🔒 전체 시청은 로그인 후 무료</div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg hobby">🎵</div>
+        <div class="card-badge">노래·취미 배우기</div>
+        <div class="card-play">▶ 8분 14초</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">노래·취미 배우기</div>
+        <div class="card-title">오카리나 입문 3강 — 도레미파 완벽히 잡는 법</div>
+        <div class="card-meta">2일 전 · 좋아요 441</div>
+        <div class="card-lock">🔒 강좌 수강은 로그인 후 무료</div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg language">🌍</div>
+        <div class="card-badge">외국어 배우기</div>
+        <div class="card-play">▶ 10분 00초</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">외국어 배우기</div>
+        <div class="card-title">일본 여행에서 꼭 쓰는 일본어 20문장 — 발음 따라하기</div>
+        <div class="card-meta">4일 전 · 조회 2,103</div>
+        <div class="card-lock">🔒 전체 강의는 로그인 후 무료</div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-thumb">
+        <div class="card-thumb-bg dementia">🧩</div>
+        <div class="card-badge">치매 예방</div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">치매 예방</div>
+        <div class="card-title">오늘의 두뇌 훈련 — AI와 함께하는 틀린 그림 찾기 (무료 체험)</div>
+        <div class="card-meta">매일 업데이트 · 참여 812명</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JANGGI SECTION -->
+  <div class="section-header">
+    <div class="section-title">웹장기 — 두뇌 건강 게임</div>
+    <a href="#" class="section-more">게임 전체보기 →</a>
+  </div>
+  <div class="janggi-section">
+    <div class="janggi-left">
+      <div class="janggi-eyebrow">SMART GYEONGRODANG × 사이버경로당 연동</div>
+      <div class="janggi-title">장기 한 판 두실까요?<br>두뇌 건강을 지키세요</div>
+      <div class="janggi-desc">전략 게임이 인지 예비능(Cognitive Reserve)을 강화해 치매 발병 위험을 낮춥니다. 경로당 키오스크와 기록이 실시간 연동됩니다.</div>
+      <div class="janggi-badges">
+        <div class="janggi-badge">🧠 치매 예방 효과 입증</div>
+        <div class="janggi-badge">📡 경로당 키오스크 연동</div>
+        <div class="janggi-badge red-badge">🏆 우리 경로당 랭킹</div>
+      </div>
+      <div class="loss-banner">
+        ⏰ <strong>오늘 남은 무료 게임 기회: ♟️♟️♟️♟️♟️ 5판</strong> — 자정에 초기화됩니다
+      </div>
+      <div class="janggi-hearts">
+        <span class="heart">♟️</span>
+        <span class="heart">♟️</span>
+        <span class="heart">♟️</span>
+        <span class="heart">♟️</span>
+        <span class="heart">♟️</span>
+        <span class="heart-label">오늘 5판 전부 남아있어요!</span>
+      </div>
+      <button class="btn-play">♟️ 지금 바로 두기 →</button>
+    </div>
+    <div class="janggi-right">
+      <div class="leaderboard">
+        <div class="lb-header">
+          <div class="lb-title">🏅 이번 주 우리 경로당 순위</div>
+          <div class="lb-tabs">
+            <div class="lb-tab active">경로당</div>
+            <div class="lb-tab">전국</div>
+          </div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank gold">1</div>
+          <div class="lb-name">김정수 어르신</div>
+          <div class="lb-location">우리 경로당</div>
+          <div class="lb-score">승률 84%</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank silver">2</div>
+          <div class="lb-name">박순자 어르신</div>
+          <div class="lb-location">우리 경로당</div>
+          <div class="lb-score">승률 71%</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank bronze">3</div>
+          <div class="lb-name">이영호 어르신</div>
+          <div class="lb-location">우리 경로당</div>
+          <div class="lb-score">승률 68%</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank other">4</div>
+          <div class="lb-name">최동철 어르신</div>
+          <div class="lb-location">우리 경로당</div>
+          <div class="lb-score">승률 55%</div>
+        </div>
+        <div class="lb-row lb-you">
+          <div class="lb-rank other" style="background:#dbeafe;color:#1d4ed8;">나</div>
+          <div class="lb-name" style="color:#1d4ed8;">나의 순위</div>
+          <div class="lb-location">7위</div>
+          <div class="lb-score" style="color:#1d4ed8;">승률 43%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 대한노인회 · 사이버경로당 &nbsp;|&nbsp; 이 화면은 제안용 UI 샘플입니다
+</footer>
+
+</body>
+</html>
